@@ -18,6 +18,7 @@ Notebook-first data preparation, baseline training, and inference utilities for 
 - `src/inference`: model loading and prediction CLI.
 - `models/<dataset>`: saved model pipeline, schema, metrics, and config.
 - `reports`: generated metric summaries.
+- `app/ui/preview.html`: lightweight HTML preview for training and inference outputs.
 - `tests`: training and inference tests.
 
 ## Setup
@@ -38,6 +39,12 @@ pip install -r requirements-dev.txt
 ## Data Preprocessing Workflow
 Primary workflow documentation is in `SPEC.md` and implemented in:
 - `notebooks/01_eda/dataset_preprocessing.ipynb`
+
+Related workflow docs:
+- `TRAINING-PLAN.md`
+- `TRAINING-SUMMARY.md`
+- `INFERENCE-PLAN.md`
+- `INFERENCE-SUMMARY.md`
 
 Expected high-level order:
 1. Token standardization
@@ -81,7 +88,7 @@ Generate JSON and Markdown summaries from saved model metrics:
 ```
 
 ## Run Inference
-Use dataset-specific model artifacts with JSON input.
+Use dataset-specific model artifacts with JSON or CSV input.
 
 Single JSON record (inline):
 
@@ -99,6 +106,19 @@ From JSON file (batch list):
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.inference.predict --dataset heart --input-file data/external/inference_samples/heart_batch.json --output reports/heart-predictions.json
+```
+
+From CSV file (batch):
+
+```powershell
+.\.venv\Scripts\python.exe -m src.inference.predict --dataset heart --input-csv path/to/input.csv --output reports/heart-predictions.json
+```
+
+## Lightweight Preview UI
+Open the static preview page to visualize saved training metrics and sample inference outputs:
+
+```text
+app/ui/preview.html
 ```
 
 ## Run Tests
