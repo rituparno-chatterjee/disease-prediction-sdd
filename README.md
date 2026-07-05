@@ -84,42 +84,52 @@ Each dataset folder includes:
 Generate JSON and Markdown summaries from saved model metrics:
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.training.summarize_metrics --models-dir models --output reports/training-metrics-summary.json --markdown-output reports/training-metrics-summary.md
+.\.venv\Scripts\python.exe -m src.training.summarize_metrics `
+	--models-dir models `
+	--output reports/training-metrics-summary.json `
+	--markdown-output reports/training-metrics-summary.md
 ```
 
 ## Run Inference
 Use dataset-specific model artifacts with JSON or CSV input.
 
-Single JSON record (inline):
+Single JSON record (from sample file):
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.inference.predict --dataset diabetes --input-json '{"Pregnancies":2,"Glucose":120,"BloodPressure":70,"SkinThickness":20,"Insulin":79,"BMI":28.0,"DiabetesPedigreeFunction":0.3,"Age":35}'
+.\.venv\Scripts\python.exe -m src.inference.predict `
+	--dataset diabetes `
+	--input-file data/external/inference_samples/diabetes_sample.json
 ```
 
 From JSON file:
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.inference.predict --dataset heart --input-file data/external/inference_samples/heart_sample.json
+.\.venv\Scripts\python.exe -m src.inference.predict `
+	--dataset heart `
+	--input-file data/external/inference_samples/heart_sample.json
 ```
 
 From JSON file (batch list):
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.inference.predict --dataset heart --input-file data/external/inference_samples/heart_batch.json --output reports/heart-predictions.json
+.\.venv\Scripts\python.exe -m src.inference.predict `
+	--dataset heart `
+	--input-file data/external/inference_samples/heart_batch.json `
+	--output reports/heart-predictions.json
 ```
 
 From CSV file (batch):
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.inference.predict --dataset heart --input-csv path/to/input.csv --output reports/heart-predictions.json
+.\.venv\Scripts\python.exe -m src.inference.predict `
+	--dataset heart `
+	--input-csv path/to/input.csv `
+	--output reports/heart-predictions.json
 ```
 
 ## Lightweight Preview UI
 Open the static preview page to visualize saved training metrics and sample inference outputs:
-
-```text
-app/ui/preview.html
-```
+- `app/ui/preview.html`
 
 ## Run Tests
 
