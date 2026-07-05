@@ -1,0 +1,56 @@
+{
+  "datasets": [
+    {
+      "dataset": "diabetes",
+      "task_type": "binary",
+      "rows_used": 768,
+      "best_params": {
+        "model__C": 1.0
+      },
+      "validation_f1": 0.6889,
+      "test_f1": 0.675,
+      "validation_precision": 0.62,
+      "test_precision": 0.6923,
+      "validation_recall": 0.775,
+      "test_recall": 0.6585,
+      "validation_roc_auc": 0.8303,
+      "test_roc_auc": 0.8452,
+      "validation_pr_auc": 0.709,
+      "test_pr_auc": 0.7768
+    },
+    {
+      "dataset": "heart",
+      "task_type": "multiclass",
+      "rows_used": 920,
+      "best_params": {
+        "model__C": 0.1
+      },
+      "validation_f1": 0.4031,
+      "test_f1": 0.3712,
+      "validation_precision": 0.4069,
+      "test_precision": 0.379,
+      "validation_recall": 0.4511,
+      "test_recall": 0.4198,
+      "validation_roc_auc_ovr_macro": 0.7882,
+      "test_roc_auc_ovr_macro": 0.7874
+    },
+    {
+      "dataset": "kidney",
+      "task_type": "binary",
+      "rows_used": 200,
+      "best_params": {
+        "model__C": 1.0
+      },
+      "validation_f1": 0.9565,
+      "test_f1": 1.0,
+      "validation_precision": 0.9167,
+      "test_precision": 1.0,
+      "validation_recall": 1.0,
+      "test_recall": 1.0,
+      "validation_roc_auc": 1.0,
+      "test_roc_auc": 1.0,
+      "validation_pr_auc": 1.0,
+      "test_pr_auc": 1.0
+    }
+  ]
+}

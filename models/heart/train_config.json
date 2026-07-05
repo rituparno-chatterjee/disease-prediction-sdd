@@ -1,0 +1,66 @@
+{
+  "dataset": "heart",
+  "input_file": "heart_disease_uci_encoded.csv",
+  "settings": {
+    "random_state": 42,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "max_iter": 2000,
+    "c_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "cv_max_folds": 5
+  },
+  "class_distribution": {
+    "0": 411,
+    "1": 265,
+    "2": 109,
+    "3": 107,
+    "4": 28
+  },
+  "target_leakage_guard": {
+    "enabled": true,
+    "note": "Guard runs after feature selection and before split/model fitting.",
+    "thresholds": {
+      "warning": {
+        "equality_match_rate": 0.9,
+        "inverse_match_rate": 0.9
+      },
+      "hard_fail": {
+        "equality_match_rate": 0.995,
+        "inverse_match_rate": 0.995
+      }
+    },
+    "checked_feature_count": 13,
+    "checked_feature_names": [
+      "age",
+      "ca",
+      "chol",
+      "cp",
+      "dataset",
+      "exang",
+      "fbs",
+      "oldpeak",
+      "restecg",
+      "sex",
+      "slope",
+      "thal",
+      "thalch",
+      "trestbps"
+    ],
+    "warning_flagged_features": [],
+    "hard_failures": [],
+    "skipped_feature_count": 1,
+    "skipped_features": [
+      {
+        "feature": "oldpeak",
+        "reason": "non_integer_like_values"
+      }
+    ]
+  }
+}

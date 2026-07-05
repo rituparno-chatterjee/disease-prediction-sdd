@@ -1,0 +1,16 @@
+{
+  "age": 63,
+  "sex": 1,
+  "dataset": 0,
+  "cp": 3,
+  "trestbps": 145,
+  "chol": 233,
+  "fbs": 1,
+  "restecg": 0,
+  "thalch": 150,
+  "exang": 0,
+  "oldpeak": 2.3,
+  "slope": 0,
+  "ca": 0,
+  "thal": 0
+}

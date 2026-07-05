@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Train Logistic (All Datasets)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "src.training.train_logistic",
+        "--dataset",
+        "all"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Summarize Training Metrics",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "src.training.summarize_metrics",
+        "--models-dir",
+        "models",
+        "--output",
+        "reports/training-metrics-summary.json",
+        "--markdown-output",
+        "reports/training-metrics-summary.md"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Train + Summarize Logistic Metrics",
+      "dependsOn": [
+        "Train Logistic (All Datasets)",
+        "Summarize Training Metrics"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}

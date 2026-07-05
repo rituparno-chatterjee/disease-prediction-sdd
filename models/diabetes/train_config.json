@@ -1,0 +1,61 @@
+{
+  "dataset": "diabetes",
+  "input_file": "diabetes_encoded.csv",
+  "settings": {
+    "random_state": 42,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "max_iter": 2000,
+    "c_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "cv_max_folds": 5
+  },
+  "class_distribution": {
+    "0": 500,
+    "1": 268
+  },
+  "target_leakage_guard": {
+    "enabled": true,
+    "note": "Guard runs after feature selection and before split/model fitting.",
+    "thresholds": {
+      "warning": {
+        "equality_match_rate": 0.9,
+        "inverse_match_rate": 0.9
+      },
+      "hard_fail": {
+        "equality_match_rate": 0.995,
+        "inverse_match_rate": 0.995
+      }
+    },
+    "checked_feature_count": 6,
+    "checked_feature_names": [
+      "Age",
+      "BMI",
+      "BloodPressure",
+      "DiabetesPedigreeFunction",
+      "Glucose",
+      "Insulin",
+      "Pregnancies",
+      "SkinThickness"
+    ],
+    "warning_flagged_features": [],
+    "hard_failures": [],
+    "skipped_feature_count": 2,
+    "skipped_features": [
+      {
+        "feature": "BMI",
+        "reason": "non_integer_like_values"
+      },
+      {
+        "feature": "DiabetesPedigreeFunction",
+        "reason": "non_integer_like_values"
+      }
+    ]
+  }
+}

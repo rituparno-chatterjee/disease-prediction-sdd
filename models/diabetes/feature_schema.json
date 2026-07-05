@@ -1,0 +1,19 @@
+{
+  "feature_columns": [
+    "Pregnancies",
+    "Glucose",
+    "BloodPressure",
+    "SkinThickness",
+    "Insulin",
+    "BMI",
+    "DiabetesPedigreeFunction",
+    "Age"
+  ],
+  "dropped_columns": [
+    "Outcome"
+  ],
+  "dropped_column_reasons": {
+    "Outcome": "target column"
+  },
+  "target_column": "Outcome"
+}

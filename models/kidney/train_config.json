@@ -1,0 +1,71 @@
+{
+  "dataset": "kidney",
+  "input_file": "ckd-dataset-v2_encoded.csv",
+  "settings": {
+    "random_state": 42,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "max_iter": 2000,
+    "c_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "cv_max_folds": 5
+  },
+  "class_distribution": {
+    "0": 128,
+    "1": 72
+  },
+  "target_leakage_guard": {
+    "enabled": true,
+    "note": "Guard runs after feature selection and before split/model fitting.",
+    "thresholds": {
+      "warning": {
+        "equality_match_rate": 0.9,
+        "inverse_match_rate": 0.9
+      },
+      "hard_fail": {
+        "equality_match_rate": 0.995,
+        "inverse_match_rate": 0.995
+      }
+    },
+    "checked_feature_count": 27,
+    "checked_feature_names": [
+      "age",
+      "al",
+      "ane",
+      "appet",
+      "ba",
+      "bgr",
+      "bp (Diastolic)",
+      "bp limit",
+      "bu",
+      "cad",
+      "dm",
+      "grf",
+      "hemo",
+      "htn",
+      "pc",
+      "pcc",
+      "pcv",
+      "pe",
+      "pot",
+      "rbc",
+      "rbcc",
+      "sc",
+      "sg",
+      "sod",
+      "stage",
+      "su",
+      "wbcc"
+    ],
+    "warning_flagged_features": [],
+    "hard_failures": [],
+    "skipped_feature_count": 0,
+    "skipped_features": []
+  }
+}

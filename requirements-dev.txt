@@ -1,0 +1,5 @@
+jupyterlab==4.2.5
+ipykernel==6.29.5
+pytest==8.3.3
+black==24.8.0
+isort==5.13.2

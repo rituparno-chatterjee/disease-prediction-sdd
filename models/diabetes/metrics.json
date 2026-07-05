@@ -1,0 +1,42 @@
+{
+  "task_type": "binary",
+  "best_params": {
+    "model__C": 1.0
+  },
+  "validation": {
+    "f1": 0.6888888888888889,
+    "precision": 0.62,
+    "recall": 0.775,
+    "confusion_matrix": [
+      [
+        56,
+        19
+      ],
+      [
+        9,
+        31
+      ]
+    ],
+    "roc_auc": 0.8303333333333334,
+    "pr_auc": 0.7090424164609929
+  },
+  "test": {
+    "f1": 0.675,
+    "precision": 0.6923076923076923,
+    "recall": 0.6585365853658537,
+    "confusion_matrix": [
+      [
+        63,
+        12
+      ],
+      [
+        14,
+        27
+      ]
+    ],
+    "roc_auc": 0.8452032520325203,
+    "pr_auc": 0.7767709169459773
+  },
+  "dataset_rows": 768,
+  "rows_used": 768
+}

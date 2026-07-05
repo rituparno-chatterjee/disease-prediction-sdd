@@ -1,0 +1,27 @@
+{
+  "feature_columns": [
+    "age",
+    "sex",
+    "dataset",
+    "cp",
+    "trestbps",
+    "chol",
+    "fbs",
+    "restecg",
+    "thalch",
+    "exang",
+    "oldpeak",
+    "slope",
+    "ca",
+    "thal"
+  ],
+  "dropped_columns": [
+    "id",
+    "num"
+  ],
+  "dropped_column_reasons": {
+    "id": "id-like column",
+    "num": "target column"
+  },
+  "target_column": "num"
+}
