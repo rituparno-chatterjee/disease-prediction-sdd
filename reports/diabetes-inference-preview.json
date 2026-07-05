@@ -1,0 +1,39 @@
+{
+  "dataset": "diabetes",
+  "record_count": 1,
+  "results": [
+    {
+      "dataset": "diabetes",
+      "predicted_class": 1,
+      "predicted_class_label": null,
+      "class_probabilities": {
+        "0": 0.19782261633386133,
+        "1": 0.8021773836661387
+      },
+      "confidence_score": 0.8021773836661387,
+      "validation_warnings": [],
+      "model_metric_summary": {
+        "task_type": "binary",
+        "best_params": {
+          "model__C": 1.0
+        },
+        "validation": {
+          "f1": 0.6888888888888889,
+          "roc_auc": 0.8303333333333334,
+          "pr_auc": 0.7090424164609929
+        },
+        "test": {
+          "f1": 0.675,
+          "roc_auc": 0.8452032520325203,
+          "pr_auc": 0.7767709169459773
+        }
+      }
+    }
+  ],
+  "artifact_paths": {
+    "model_path": "models\\diabetes\\logistic_pipeline.joblib",
+    "schema_path": "models\\diabetes\\feature_schema.json",
+    "metrics_path": "models\\diabetes\\metrics.json"
+  },
+  "pipeline_type": "Pipeline"
+}

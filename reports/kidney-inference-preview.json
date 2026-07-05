@@ -1,0 +1,39 @@
+{
+  "dataset": "kidney",
+  "record_count": 1,
+  "results": [
+    {
+      "dataset": "kidney",
+      "predicted_class": 0,
+      "predicted_class_label": null,
+      "class_probabilities": {
+        "0": 0.809715555739413,
+        "1": 0.19028444426058702
+      },
+      "confidence_score": 0.809715555739413,
+      "validation_warnings": [],
+      "model_metric_summary": {
+        "task_type": "binary",
+        "best_params": {
+          "model__C": 1.0
+        },
+        "validation": {
+          "f1": 0.9565217391304348,
+          "roc_auc": 1.0,
+          "pr_auc": 1.0
+        },
+        "test": {
+          "f1": 1.0,
+          "roc_auc": 1.0,
+          "pr_auc": 1.0
+        }
+      }
+    }
+  ],
+  "artifact_paths": {
+    "model_path": "models\\kidney\\logistic_pipeline.joblib",
+    "schema_path": "models\\kidney\\feature_schema.json",
+    "metrics_path": "models\\kidney\\metrics.json"
+  },
+  "pipeline_type": "Pipeline"
+}

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disease Prediction Preview</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --panel: #ffffff;
+      --ink: #1e2a32;
+      --muted: #5a6770;
+      --line: #d5d9dc;
+      --primary: #0f766e;
+      --secondary: #7c3aed;
+      --accent: #f59e0b;
+      --good: #15803d;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% -10%, #d8f8f3 0%, transparent 40%),
+        radial-gradient(circle at 95% 0%, #f6e8ff 0%, transparent 38%),
+        var(--bg);
+      line-height: 1.4;
+    }
+
+    .wrap {
+      width: min(1100px, 92vw);
+      margin: 30px auto 40px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #123f58, #0f766e 60%, #0a5b61);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 16px 38px rgba(18, 63, 88, 0.25);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d6f4f2;
+    }
+
+    .badge-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 920px) {
+      .grid {
+        grid-template-columns: 1.2fr 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: #13232d;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfcfd;
+    }
+
+    .kpi .label {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .kpi .value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .bars {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 48px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-track {
+      position: relative;
+      height: 12px;
+      border-radius: 999px;
+      background: #e8ecef;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .bar-fill.validation {
+      background: linear-gradient(90deg, #14b8a6, #0f766e);
+    }
+
+    .bar-fill.test {
+      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+    }
+
+    .metric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .metric-table th,
+    .metric-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 6px;
+      text-align: left;
+    }
+
+    .metric-table th {
+      color: #2e3d47;
+      background: #f8fafb;
+      font-weight: 600;
+    }
+
+    .inference-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pred-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #fcfdfd;
+    }
+
+    .pred-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 0.75rem;
+      border: 1px solid #bdd9d6;
+      background: #edf9f8;
+      color: #0f766e;
+      font-weight: 600;
+    }
+
+    .warn {
+      color: var(--warn);
+      font-size: 0.84rem;
+      margin-top: 6px;
+    }
+
+    .foot {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 8px;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      background: #fcfcfd;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Disease Prediction Training + Inferencing Preview</h1>
+      <p>Lightweight static view over saved metrics and sample inference outputs.</p>
+      <div class="badge-row" id="statusBadges"></div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Training Overview</h2>
+        <div id="kpiGrid" class="kpis"></div>
+        <div id="barChart" class="bars"></div>
+      </article>
+
+      <article class="panel">
+        <h2>Dataset Metrics</h2>
+        <table class="metric-table">
+          <thead>
+            <tr>
+              <th>Dataset</th>
+              <th>Task</th>
+              <th>Rows</th>
+              <th>Val F1</th>
+              <th>Test F1</th>
+            </tr>
+          </thead>
+          <tbody id="metricsRows"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Inferencing Preview</h2>
+      <div id="inferenceList" class="inference-list"></div>
+      <p class="foot">Tip: serve this repo with a local web server for live JSON loading, for example: <strong>python -m http.server</strong>.</p>
+    </section>
+  </main>
+
+  <script>
+    const fallback = {
+      training: {
+        datasets: [
+          { dataset: "diabetes", task_type: "binary", rows_used: 768, validation_f1: 0.6889, test_f1: 0.675 },
+          { dataset: "heart", task_type: "multiclass", rows_used: 920, validation_f1: 0.4031, test_f1: 0.3712 },
+          { dataset: "kidney", task_type: "binary", rows_used: 200, validation_f1: 0.9565, test_f1: 1.0 }
+        ]
+      },
+      inference: {
+        diabetes: { dataset: "diabetes", record_count: 1, results: [{ predicted_class: 1, confidence_score: 0.8022, validation_warnings: [], class_probabilities: { "0": 0.1978, "1": 0.8022 } }] },
+        heart: { dataset: "heart", record_count: 2, results: [{ predicted_class: 4, confidence_score: 0.3431, validation_warnings: ["Baseline warning"], class_probabilities: { "0": 0.1425, "1": 0.0770, "2": 0.2007, "3": 0.2368, "4": 0.3431 } }] },
+        kidney: { dataset: "kidney", record_count: 1, results: [{ predicted_class: 0, confidence_score: 0.8097, validation_warnings: [], class_probabilities: { "0": 0.8097, "1": 0.1903 } }] }
+      }
+    };
+
+    const paths = {
+      training: "../../reports/training-metrics-summary.json",
+      diabetes: "../../reports/diabetes-inference-preview.json",
+      heart: "../../reports/heart-inference-preview.json",
+      kidney: "../../reports/kidney-inference-preview.json"
+    };
+
+    const state = {
+      usedFallback: false,
+      loaded: []
+    };
+
+    function pct(v) {
+      if (typeof v !== "number" || Number.isNaN(v)) return "n/a";
+      return (v * 100).toFixed(1) + "%";
+    }
+
+    function score(v) {
+      if (typeof v !== "number" || Number.isNaN(v)) return "n/a";
+      return v.toFixed(4);
+    }
+
+    async function loadJson(path, fallbackValue) {
+      try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error("bad response");
+        state.loaded.push(path);
+        return await response.json();
+      } catch (_err) {
+        state.usedFallback = true;
+        return fallbackValue;
+      }
+    }
+
+    function renderBadges() {
+      const el = document.getElementById("statusBadges");
+      el.innerHTML = "";
+
+      const loadedBadge = document.createElement("span");
+      loadedBadge.className = "badge";
+      loadedBadge.textContent = "Loaded files: " + state.loaded.length;
+      el.appendChild(loadedBadge);
+
+      const modeBadge = document.createElement("span");
+      modeBadge.className = "badge";
+      modeBadge.textContent = state.usedFallback ? "Mode: Fallback sample data" : "Mode: Live JSON files";
+      el.appendChild(modeBadge);
+    }
+
+    function renderTraining(training) {
+      const datasets = Array.isArray(training?.datasets) ? training.datasets : [];
+      const kpiGrid = document.getElementById("kpiGrid");
+      const rows = document.getElementById("metricsRows");
+      const bars = document.getElementById("barChart");
+
+      kpiGrid.innerHTML = "";
+      rows.innerHTML = "";
+      bars.innerHTML = "";
+
+      if (!datasets.length) {
+        kpiGrid.innerHTML = "<div class=\"empty\">No training metrics found.</div>";
+        return;
+      }
+
+      const avgVal = datasets.reduce((a, d) => a + (d.validation_f1 || 0), 0) / datasets.length;
+      const avgTest = datasets.reduce((a, d) => a + (d.test_f1 || 0), 0) / datasets.length;
+      const totalRows = datasets.reduce((a, d) => a + (d.rows_used || 0), 0);
+
+      const kpis = [
+        ["Datasets", String(datasets.length)],
+        ["Rows Used", String(totalRows)],
+        ["Avg Validation F1", score(avgVal)],
+        ["Avg Test F1", score(avgTest)]
+      ];
+
+      kpis.forEach(([label, value]) => {
+        const card = document.createElement("div");
+        card.className = "kpi";
+        card.innerHTML = "<div class='label'>" + label + "</div><div class='value'>" + value + "</div>";
+        kpiGrid.appendChild(card);
+      });
+
+      datasets.forEach((d) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + d.dataset + "</td>"
+          + "<td>" + (d.task_type || "n/a") + "</td>"
+          + "<td>" + (d.rows_used ?? "n/a") + "</td>"
+          + "<td>" + score(d.validation_f1) + "</td>"
+          + "<td>" + score(d.test_f1) + "</td>";
+        rows.appendChild(tr);
+
+        const valWidth = Math.max(0, Math.min(100, (d.validation_f1 || 0) * 100));
+        const testWidth = Math.max(0, Math.min(100, (d.test_f1 || 0) * 100));
+
+        const valRow = document.createElement("div");
+        valRow.className = "bar-row";
+        valRow.innerHTML = "<div>" + d.dataset + " val</div>"
+          + "<div class='bar-track'><div class='bar-fill validation' style='width:" + valWidth + "%'></div></div>"
+          + "<div>" + pct(d.validation_f1) + "</div>";
+        bars.appendChild(valRow);
+
+        const testRow = document.createElement("div");
+        testRow.className = "bar-row";
+        testRow.innerHTML = "<div>" + d.dataset + " test</div>"
+          + "<div class='bar-track'><div class='bar-fill test' style='width:" + testWidth + "%'></div></div>"
+          + "<div>" + pct(d.test_f1) + "</div>";
+        bars.appendChild(testRow);
+      });
+    }
+
+    function renderInference(predictionsByDataset) {
+      const host = document.getElementById("inferenceList");
+      host.innerHTML = "";
+
+      const datasets = Object.values(predictionsByDataset || {});
+      if (!datasets.length) {
+        host.innerHTML = "<div class='empty'>No inference outputs found.</div>";
+        return;
+      }
+
+      datasets.forEach((bundle) => {
+        const records = Array.isArray(bundle?.results) ? bundle.results : [];
+        const title = document.createElement("div");
+        title.className = "pred-card";
+        title.innerHTML = "<div class='pred-head'><strong>" + (bundle.dataset || "dataset") + "</strong><span class='pill'>records: " + (bundle.record_count ?? records.length) + "</span></div>";
+
+        if (!records.length) {
+          title.innerHTML += "<div class='empty'>No prediction records in file.</div>";
+          host.appendChild(title);
+          return;
+        }
+
+        const first = records[0];
+        title.innerHTML += "<div>Predicted class: <strong>" + (first.predicted_class ?? "n/a") + "</strong></div>";
+        title.innerHTML += "<div>Confidence: <strong>" + pct(first.confidence_score) + "</strong></div>";
+
+        const probs = first.class_probabilities || {};
+        const probKeys = Object.keys(probs);
+        if (probKeys.length) {
+          const probWrap = document.createElement("div");
+          probWrap.className = "bars";
+          probKeys.forEach((key) => {
+            const value = probs[key];
+            const width = Math.max(0, Math.min(100, (value || 0) * 100));
+            const row = document.createElement("div");
+            row.className = "bar-row";
+            row.innerHTML = "<div>Class " + key + "</div>"
+              + "<div class='bar-track'><div class='bar-fill validation' style='width:" + width + "%'></div></div>"
+              + "<div>" + pct(value) + "</div>";
+            probWrap.appendChild(row);
+          });
+          title.appendChild(probWrap);
+        }
+
+        const warnings = Array.isArray(first.validation_warnings) ? first.validation_warnings : [];
+        if (warnings.length) {
+          const w = document.createElement("div");
+          w.className = "warn";
+          w.textContent = "Warning: " + warnings[0];
+          title.appendChild(w);
+        }
+
+        host.appendChild(title);
+      });
+    }
+
+    async function bootstrap() {
+      const training = await loadJson(paths.training, fallback.training);
+      const diabetes = await loadJson(paths.diabetes, fallback.inference.diabetes);
+      const heart = await loadJson(paths.heart, fallback.inference.heart);
+      const kidney = await loadJson(paths.kidney, fallback.inference.kidney);
+
+      renderBadges();
+      renderTraining(training);
+      renderInference({ diabetes, heart, kidney });
+    }
+
+    bootstrap();
+  </script>
+</body>
+</html>
