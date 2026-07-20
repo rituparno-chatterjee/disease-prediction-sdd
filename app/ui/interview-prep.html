@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disease Prediction SDD Interview Prep</title>
+  <style>
+    :root {
+      --bg: #f2f4f7;
+      --panel: #ffffff;
+      --ink: #14212b;
+      --muted: #55646f;
+      --line: #d0d8df;
+      --brand: #0e7490;
+      --brand-2: #1d4ed8;
+      --accent: #d97706;
+      --ok: #166534;
+      --warn: #92400e;
+      --radius: 14px;
+      --shadow: 0 14px 32px rgba(16, 42, 67, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "Trebuchet MS", Tahoma, sans-serif;
+      line-height: 1.45;
+      background:
+        radial-gradient(circle at 0% 0%, #d7f0ff 0%, transparent 32%),
+        radial-gradient(circle at 100% 0%, #e5ecff 0%, transparent 34%),
+        var(--bg);
+    }
+
+    .wrap {
+      width: min(1240px, 94vw);
+      margin: 24px auto 40px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #0f3f54, #0e7490 56%, #1d4ed8);
+      color: #f8fdff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 18px 38px rgba(15, 63, 84, 0.3);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2.1vw, 2rem);
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d9eff8;
+      max-width: 940px;
+    }
+
+    .hero-meta {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+    }
+
+    .hld {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .hld h2,
+    .workspace h2,
+    .interview h2 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(130px, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f8fbfe;
+      padding: 10px;
+      font-size: 0.87rem;
+      position: relative;
+    }
+
+    .flow-step strong {
+      display: block;
+      color: #0f2f41;
+      margin-bottom: 4px;
+      font-size: 0.88rem;
+    }
+
+    .flow-step::after {
+      content: "->";
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5f7381;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .flow-step:last-child::after {
+      content: "";
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 14px;
+    }
+
+    .left-panel,
+    .right-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .left-panel {
+      padding: 12px;
+      position: sticky;
+      top: 12px;
+      align-self: start;
+      max-height: calc(100vh - 26px);
+      overflow: auto;
+    }
+
+    .left-panel p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .nav-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #f7fafc;
+      color: #1d2f3b;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: #9dc2d6;
+      background: #eef6fb;
+    }
+
+    .nav-btn.active {
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--brand), var(--brand-2));
+      border-color: transparent;
+      box-shadow: 0 8px 18px rgba(29, 78, 216, 0.25);
+    }
+
+    .right-panel {
+      padding: 14px;
+    }
+
+    .component-header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .component-header h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      color: #132733;
+    }
+
+    .component-header p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fbfdff;
+      padding: 10px;
+    }
+
+    .card h4 {
+      margin: 0 0 8px;
+      font-size: 0.94rem;
+      color: #133042;
+    }
+
+    .card ul,
+    .card ol {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .paths {
+      margin-top: 10px;
+      border: 1px dashed #9cb2bf;
+      border-radius: 10px;
+      background: #f8fbfd;
+      padding: 9px;
+      font-size: 0.85rem;
+      color: #213645;
+    }
+
+    .paths strong {
+      color: #0f2f41;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .soft-badge {
+      font-size: 0.76rem;
+      border-radius: 999px;
+      border: 1px solid #b9ced9;
+      padding: 3px 9px;
+      background: #edf7fc;
+      color: #1d4459;
+    }
+
+    .warn-box {
+      margin-top: 12px;
+      border-left: 4px solid var(--accent);
+      background: #fff8ec;
+      border-radius: 9px;
+      padding: 9px 10px;
+      color: #5b3c06;
+      font-size: 0.88rem;
+    }
+
+    .interview {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .interview ol {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1080px) {
+      .flow {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      }
+
+      .flow-step::after {
+        content: "";
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        position: static;
+        max-height: none;
+      }
+
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Disease Prediction SDD Interview Preparation</h1>
+      <p>
+        Interactive, component-by-component preparation material for design interviews.
+        Use the component navigator to drill into architecture, implementation choices,
+        interview questions, and better alternatives for each part of the project.
+      </p>
+      <div class="hero-meta">
+        <span class="chip">Scope: Diabetes + Heart + Kidney</span>
+        <span class="chip">Pipeline: Notebook -> Training -> Inference -> UI</span>
+        <span class="chip">Model Baseline: Logistic Regression</span>
+      </div>
+    </section>
+
+    <section class="hld">
+      <h2>High-Level Design</h2>
+      <div class="flow">
+        <div class="flow-step"><strong>1. Raw Data</strong>CSV inputs for three datasets are loaded from data/raw.</div>
+        <div class="flow-step"><strong>2. Preprocessing</strong>Token cleanup, imputation, encoding, target cleanup, scaling.</div>
+        <div class="flow-step"><strong>3. Feature Setup</strong>Explicit target mapping and trainable feature selection.</div>
+        <div class="flow-step"><strong>4. Training</strong>Dataset-specific pipeline + GridSearchCV over C.</div>
+        <div class="flow-step"><strong>5. Artifacts</strong>Save model pipeline, schema, metrics, and train config.</div>
+        <div class="flow-step"><strong>6. Inference</strong>Validated JSON/CSV input through saved pipeline artifacts.</div>
+        <div class="flow-step"><strong>7. UI + Reports</strong>Preview metrics and prediction outputs from saved JSON files.</div>
+      </div>
+      <div class="warn-box">
+        Interview framing: this system is a reproducible baseline ML prototype,
+        not a clinical-grade decision support tool.
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="left-panel">
+        <h2>Components</h2>
+        <p>Click any component to study design details and interview prompts.</p>
+        <ul class="nav-list" id="componentNav"></ul>
+      </aside>
+
+      <section class="right-panel">
+        <div id="componentView"></div>
+      </section>
+    </section>
+
+    <section class="interview">
+      <h2>Final 10-Minute Interview Plan</h2>
+      <ol>
+        <li>State scope and datasets, then describe the end-to-end architecture from raw data to UI.</li>
+        <li>Explain preprocessing order and why token standardization before encoding mattered.</li>
+        <li>Show training design choices: leakage guard, dataset-specific pipelines, and metric strategy.</li>
+        <li>Discuss artifacts and reproducibility: what is saved and why inference uses those exact artifacts.</li>
+        <li>Walk through inference validation and response structure, including label mapping and warnings.</li>
+        <li>Acknowledge current limitations: heart multiclass performance and non-clinical scope.</li>
+        <li>Close with concrete next-step improvements: data volume, calibration, external validation, stronger models.</li>
+      </ol>
+    </section>
+  </main>
+
+  <script>
+    const components = [
+      {
+        id: "overview",
+        title: "Project Scope and Architecture",
+        summary: "What the project is, what it is not, and how all modules connect.",
+        deepDive: [
+          "The project covers three datasets (diabetes, heart, kidney) with a shared workflow from preprocessing to inference.",
+          "The architecture separates concerns into notebook preprocessing, training scripts, inference module, reports, and static UI preview.",
+          "A key design choice is artifact-centric reproducibility: training produces versioned artifacts and inference consumes them directly.",
+          "The system is intentionally a baseline pipeline for learning and evaluation rather than a production clinical product."
+        ],
+        interviewQuestions: [
+          "How would you explain this architecture to a non-ML interviewer in under two minutes?",
+          "Why did you separate preprocessing, training, inference, and UI into different modules?",
+          "What are the benefits and trade-offs of notebook-first development for this project?",
+          "Which component boundaries are the most important for long-term maintainability?"
+        ],
+        nuances: [
+          "Interviewers may test whether you understand the difference between model performance and software design quality.",
+          "Be ready to explain why reproducibility and deterministic artifacts matter in ML workflows.",
+          "Clarify that the UI is a reader of outputs, not a model execution environment."
+        ],
+        alternatives: [
+          "Could have implemented a service-oriented architecture with a REST API instead of CLI-first inference.",
+          "Could have converted notebook preprocessing into reusable library code earlier for stricter CI control.",
+          "Could have introduced experiment tracking (MLflow/W&B) to formalize runs and comparisons."
+        ],
+        paths: "Primary docs: README.md, SPEC.md, TRAINING-SUMMARY.md, INFERENCE-SUMMARY.md"
+      },
+      {
+        id: "data",
+        title: "Data Sources and Preprocessing",
+        summary: "From raw CSV files to standardized, encoded, and model-ready datasets.",
+        deepDive: [
+          "Raw inputs are loaded from data/raw for ckd, diabetes, and heart datasets.",
+          "Preprocessing sequence is explicit: token cleanup -> encoding -> split -> missing-target cleanup -> scaling.",
+          "Noisy tokens like ?, null-like values, and placeholders are normalized before encoding to avoid category pollution.",
+          "Kidney-specific diagnostics confirm dropped rows due to invalid or missing target values."
+        ],
+        interviewQuestions: [
+          "Why is token standardization before label encoding critical in this pipeline?",
+          "What preprocessing decisions are dataset-agnostic versus dataset-specific?",
+          "How did you avoid training on rows with invalid targets?",
+          "How would you detect preprocessing drift over time?"
+        ],
+        nuances: [
+          "Order of operations matters because encoding noisy tokens can create misleading categories.",
+          "Mean/mode imputation in the notebook is simple and reproducible but may not be statistically ideal for all fields.",
+          "Scaling is performed with ID exclusions to avoid distortion of identifier-like columns."
+        ],
+        alternatives: [
+          "Could have used robust imputers (KNN, iterative imputation) and compared impact.",
+          "Could have applied outlier handling selectively per feature instead of broad IQR removal.",
+          "Could have encoded with one-hot or target encoding for selected categorical columns."
+        ],
+        paths: "Notebook and outputs: notebooks/01_eda/dataset_preprocessing.ipynb, data/processed/*.csv"
+      },
+      {
+        id: "feature",
+        title: "Feature Engineering and Target Mapping",
+        summary: "How trainable inputs are defined and leakage-prone fields are excluded.",
+        deepDive: [
+          "Target mapping is explicit and fixed: diabetes -> Outcome, heart -> num, kidney -> class.",
+          "ID-like columns are removed before training to prevent non-generalizable patterns.",
+          "Kidney drops the affected column because it is a near-perfect inverse proxy for class.",
+          "Feature schema artifacts preserve feature order and dropped-column reasons for inference consistency."
+        ],
+        interviewQuestions: [
+          "How did you identify and justify feature exclusions such as affected?",
+          "What is target leakage, and where was it likely in your project?",
+          "Why is feature order saved and reused at inference time?",
+          "How would you explain dropped_column_reasons to a reviewer?"
+        ],
+        nuances: [
+          "Leakage can hide in engineered or metadata fields that correlate too strongly with labels.",
+          "Feature schema is both a design document and a runtime contract for inference validation.",
+          "Removing columns must be documented to avoid future confusion in model audits."
+        ],
+        alternatives: [
+          "Could have automated leakage detection with mutual information or permutation tests in addition to match-rate guards.",
+          "Could have used domain-driven feature transformations (binning, ratio features) with ablation studies.",
+          "Could have versioned schemas formally and enforced compatibility checks in CI."
+        ],
+        paths: "Training logic and schema: src/training/logistic_baseline.py, models/*/feature_schema.json"
+      },
+      {
+        id: "training",
+        title: "Model Training Pipeline",
+        summary: "Dataset-specific preprocessing pipelines plus logistic regression baseline optimization.",
+        deepDive: [
+          "Training uses stratified train/validation/test splits with fixed random state for reproducibility.",
+          "Diabetes and kidney use numeric pipeline: median imputer -> scaler -> logistic regression.",
+          "Heart uses ColumnTransformer with separate numeric and categorical branches due to mixed feature semantics.",
+          "Hyperparameter tuning is done via GridSearchCV over C with class_weight=balanced."
+        ],
+        interviewQuestions: [
+          "Why was logistic regression chosen as the baseline for all datasets?",
+          "Why does the heart dataset require a different preprocessing pipeline?",
+          "What does class_weight=balanced solve, and what does it not solve?",
+          "How would you justify your split ratio and CV strategy in an interview?"
+        ],
+        nuances: [
+          "A single model family across datasets simplifies comparison but may underfit complex multiclass patterns.",
+          "Balanced class weights help with skew but cannot fully recover minority-class separability.",
+          "Pipeline encapsulation reduces training-serving skew compared to ad-hoc preprocessing scripts."
+        ],
+        alternatives: [
+          "Could have benchmarked tree ensembles (XGBoost/LightGBM/CatBoost) against logistic baseline.",
+          "Could have introduced nested cross-validation for stronger generalization estimates.",
+          "Could have calibrated probabilities (Platt/Isotonic) for better probability interpretation."
+        ],
+        paths: "Training scripts: src/training/train_logistic.py, src/training/logistic_baseline.py"
+      },
+      {
+        id: "eval",
+        title: "Evaluation and Metrics Strategy",
+        summary: "How binary and multiclass models are measured and interpreted.",
+        deepDive: [
+          "Binary datasets report F1, precision, recall, ROC-AUC, PR-AUC, and confusion matrix.",
+          "Heart multiclass focuses on macro metrics and OvR ROC-AUC to avoid majority-class bias.",
+          "Summarized metrics are exported to reports/training-metrics-summary.json and markdown for communication.",
+          "Current snapshot highlights strong kidney baseline, moderate diabetes, and weaker heart multiclass performance."
+        ],
+        interviewQuestions: [
+          "Why is macro F1 more informative than accuracy for heart multiclass?",
+          "When should PR-AUC be preferred over ROC-AUC in this context?",
+          "How would you interpret near-perfect kidney metrics on a small dataset?",
+          "What additional diagnostic plots would you add for an interview demo?"
+        ],
+        nuances: [
+          "Metric choice reflects class balance assumptions and business risk preferences.",
+          "High performance on small datasets can indicate either true separability or over-optimistic estimation.",
+          "Communication-ready summaries are essential for stakeholder conversations."
+        ],
+        alternatives: [
+          "Could have added per-class F1 and recall trend tables for heart severity levels.",
+          "Could have included calibration curves and Brier scores for probability reliability.",
+          "Could have added bootstrap confidence intervals around key metrics."
+        ],
+        paths: "Metrics scripts/reports: src/training/summarize_metrics.py, reports/training-metrics-summary.md"
+      },
+      {
+        id: "artifacts",
+        title: "Artifact Management and Reproducibility",
+        summary: "What is saved, why it is saved, and how it is reused.",
+        deepDive: [
+          "Per dataset artifacts include logistic_pipeline.joblib, metrics.json, feature_schema.json, and train_config.json.",
+          "train_config.json captures class distribution and training settings, helping post-hoc analysis.",
+          "feature_schema.json defines inference-time contract: feature columns, dropped columns, and target metadata.",
+          "Artifact reuse ensures consistency between training and inference behavior."
+        ],
+        interviewQuestions: [
+          "Which artifacts are mandatory for inference and which are optional?",
+          "How does train_config.json help in debugging and audits?",
+          "What breaks if feature_schema.json is missing or stale?",
+          "How would you implement model version rollback in this structure?"
+        ],
+        nuances: [
+          "Saved artifacts are the backbone of deterministic ML systems.",
+          "Schema and metrics are as important as model binary for explainability and operations.",
+          "Compatibility checks are needed if artifacts evolve."
+        ],
+        alternatives: [
+          "Could have used a model registry with semantic versions and stage promotion.",
+          "Could have attached data snapshot hashes to artifacts for full lineage.",
+          "Could have generated signed model cards per artifact set."
+        ],
+        paths: "Artifact folders: models/diabetes, models/heart, models/kidney"
+      },
+      {
+        id: "inference",
+        title: "Inference Pipeline and Validation",
+        summary: "Robust input handling, schema checks, prediction flow, and response design.",
+        deepDive: [
+          "Inference accepts input via --input-json, --input-file, or --input-csv.",
+          "Each record is validated against required schema columns; extras produce warnings.",
+          "Records are normalized, reindexed to exact feature order, then passed to the saved pipeline.",
+          "Output includes predicted class, human-readable class label, class probabilities, top class probability, warnings, and metric summary."
+        ],
+        interviewQuestions: [
+          "Why reindex to schema feature order even if columns are present?",
+          "How does validation protect the model from malformed inputs?",
+          "How are class labels mapped and why is that useful for UI consumers?",
+          "What is the difference between top_class_probability and statistical confidence intervals?"
+        ],
+        nuances: [
+          "Inference robustness is often judged more on validation and error quality than raw predict calls.",
+          "Label mapping improves interpretability while preserving encoded class traceability.",
+          "Heart predictions include a baseline warning due to current macro-F1 limitations."
+        ],
+        alternatives: [
+          "Could have served inference through FastAPI with OpenAPI schemas for stricter contracts.",
+          "Could have added Pydantic validation and richer field-level error reporting.",
+          "Could have included SHAP-based local explanations for each prediction."
+        ],
+        paths: "Inference module/tests: src/inference/predict.py, tests/test_inference_pipeline.py"
+      },
+      {
+        id: "ui",
+        title: "Preview UI and Reporting Layer",
+        summary: "How saved reports and inference outputs are presented to stakeholders.",
+        deepDive: [
+          "The UI is static HTML/JS and reads JSON reports from the reports directory.",
+          "It displays training KPIs, per-dataset metric rows, and per-class probability bars.",
+          "It renders human-readable predicted labels and keeps encoded IDs visible for traceability.",
+          "Fallback sample data allows demo continuity when live JSON is unavailable."
+        ],
+        interviewQuestions: [
+          "Why was a static preview UI chosen instead of a full web app?",
+          "How does the UI avoid becoming a second source of truth for model logic?",
+          "What design choices improve interview storytelling in this page?",
+          "How would you evolve this preview into a real product dashboard?"
+        ],
+        nuances: [
+          "UI should consume pipeline outputs, not reimplement model computations.",
+          "Displaying encoded IDs with labels helps debugging and prevents hidden mappings.",
+          "Clear warning text in UI improves responsible communication of model limits."
+        ],
+        alternatives: [
+          "Could have built a React dashboard with filterable per-record tables and confusion matrices.",
+          "Could have added provenance details (model version, artifact timestamp) in the UI.",
+          "Could have integrated interactive what-if analysis for input sensitivity."
+        ],
+        paths: "UI and reports: app/ui/preview.html, reports/*.json, reports/*.md"
+      },
+      {
+        id: "testing",
+        title: "Testing, Quality, and Safety Controls",
+        summary: "Automated checks for training and inference behavior with leakage/safety guardrails.",
+        deepDive: [
+          "Training tests validate baseline pipeline behavior and expected outputs.",
+          "Inference tests validate single-record and batch flows, plus required-column failure paths.",
+          "Leakage guard blocks near-perfect direct or inverse target proxy features.",
+          "Heart-specific non-clinical warning enforces conservative communication in outputs."
+        ],
+        interviewQuestions: [
+          "What failure modes are currently tested, and which are not yet tested?",
+          "How does the leakage guard work conceptually and why is it important?",
+          "How would you test schema evolution without breaking old artifacts?",
+          "Which additional tests would you add before external release?"
+        ],
+        nuances: [
+          "Tests currently focus on core deterministic flows, not full adversarial input space.",
+          "Safety messaging is a product decision implemented in technical outputs.",
+          "Leakage checks are essential but can still miss complex multi-feature leakage patterns."
+        ],
+        alternatives: [
+          "Could have added property-based tests for random payload generation.",
+          "Could have added integration tests covering full train->infer->UI report chain.",
+          "Could have added dataset drift checks and schema contract tests in CI."
+        ],
+        paths: "Test files and guards: tests/test_logistic_training.py, tests/test_inference_pipeline.py"
+      },
+      {
+        id: "roadmap",
+        title: "Limitations, Trade-Offs, and Next Improvements",
+        summary: "How to answer hard interview questions on shortcomings and roadmap.",
+        deepDive: [
+          "Heart multiclass performance is modest; this is openly acknowledged and warned in outputs.",
+          "Kidney metrics are very high but dataset size is small, so confidence in generalization is limited.",
+          "The project is baseline and reproducible, but not clinically validated or deployment hardened.",
+          "Main strength is architecture and reproducibility; main risk is dataset quality/coverage for advanced claims."
+        ],
+        interviewQuestions: [
+          "If you had two more weeks, what would you improve first and why?",
+          "Which parts are already production-shaped and which are not?",
+          "How would you reduce risk of overfitting and optimistic evaluation?",
+          "What evidence would be required before any real-world clinical use?"
+        ],
+        nuances: [
+          "A strong interview answer balances achievements with clear limits and realistic next steps.",
+          "Do not over-claim on model quality; emphasize responsible framing.",
+          "Demonstrate prioritization ability: choose high-impact upgrades first."
+        ],
+        alternatives: [
+          "Could have prioritized external validation datasets and cross-site robustness checks.",
+          "Could have implemented model monitoring hooks and drift alarms for future deployment.",
+          "Could have added fairness analysis across demographic subgroups where available."
+        ],
+        paths: "Performance and constraints: reports/training-metrics-summary.md, INFERENCE-SUMMARY.md"
+      }
+    ];
+
+    const nav = document.getElementById("componentNav");
+    const view = document.getElementById("componentView");
+
+    function list(items, ordered = false) {
+      const tag = ordered ? "ol" : "ul";
+      const rows = items.map((item) => `<li>${item}</li>`).join("");
+      return `<${tag}>${rows}</${tag}>`;
+    }
+
+    function renderComponent(component) {
+      view.innerHTML = `
+        <div class="component-header">
+          <h3>${component.title}</h3>
+          <p>${component.summary}</p>
+          <div class="badge-row">
+            <span class="soft-badge">Interview focus</span>
+            <span class="soft-badge">Design + implementation</span>
+            <span class="soft-badge">Trade-offs + improvements</span>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <article class="card">
+            <h4>How It Works</h4>
+            ${list(component.deepDive)}
+          </article>
+          <article class="card">
+            <h4>Nuances to Explain</h4>
+            ${list(component.nuances)}
+          </article>
+        </div>
+
+        <div class="grid-two">
+          <article class="card">
+            <h4>Interview Questions</h4>
+            ${list(component.interviewQuestions, true)}
+          </article>
+          <article class="card">
+            <h4>What Else Could Have Been Done</h4>
+            ${list(component.alternatives)}
+          </article>
+        </div>
+
+        <div class="paths"><strong>Project anchors:</strong> ${component.paths}</div>
+      `;
+    }
+
+    function setActive(id) {
+      const buttons = document.querySelectorAll(".nav-btn");
+      buttons.forEach((btn) => {
+        if (btn.dataset.id === id) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    function bootstrap() {
+      components.forEach((component, index) => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "nav-btn";
+        btn.dataset.id = component.id;
+        btn.textContent = `${index + 1}. ${component.title}`;
+        btn.addEventListener("click", () => {
+          setActive(component.id);
+          renderComponent(component);
+        });
+        li.appendChild(btn);
+        nav.appendChild(li);
+      });
+
+      setActive(components[0].id);
+      renderComponent(components[0]);
+    }
+
+    bootstrap();
+  </script>
+</body>
+</html>

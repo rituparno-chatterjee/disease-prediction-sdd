@@ -230,6 +230,47 @@
       border-radius: 10px;
       background: #fcfcfd;
     }
+
+    .context-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+      color: #24333d;
+      font-size: 0.92rem;
+    }
+
+    .context-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .context-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 920px) {
+      .context-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .context-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfcfd;
+    }
+
+    .context-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #1f2f39;
+    }
   </style>
 </head>
 <body>
@@ -238,6 +279,35 @@
       <h1>Disease Prediction Training + Inferencing Preview</h1>
       <p>Lightweight static view over saved metrics and sample inference outputs.</p>
       <div class="badge-row" id="statusBadges"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Data Preprocessing + Feature Engineering</h2>
+      <div class="context-grid">
+        <article class="context-card">
+          <h3>Pipeline Steps Used Before Training</h3>
+          <ul class="context-list">
+            <li>Token standardization normalizes noisy categorical placeholders (for example ?, na, null-like tokens).</li>
+            <li>Label encoding converts standardized categorical values into model-ready numeric columns.</li>
+            <li>Dataset target mapping is fixed: diabetes -> Outcome, heart -> num, kidney -> class.</li>
+            <li>Rows with missing target values are removed before split construction.</li>
+            <li>Stratified train/validation/test splits are created with deterministic random state.</li>
+            <li>Eligible non-ID feature columns are scaled where required by the model path.</li>
+          </ul>
+        </article>
+        <article class="context-card">
+          <h3>Dataset-Specific Feature Engineering Paths</h3>
+          <ul class="context-list">
+            <li>Diabetes and kidney pipelines follow a numeric baseline: median imputation, scaling, logistic regression.</li>
+            <li>Kidney training drops the affected leakage proxy before model fitting.</li>
+            <li>Heart uses a type-aware ColumnTransformer to avoid treating nominal medical categories as continuous numbers.</li>
+            <li>Heart numeric branch: median imputation plus standard scaling.</li>
+            <li>Heart categorical branch: most-frequent imputation plus one-hot encoding with unknown-category tolerance.</li>
+            <li>Inference reuses the saved training pipeline artifact, so browser preview and CLI outputs reflect the same preprocessing logic.</li>
+          </ul>
+        </article>
+      </div>
+      <p class="context-note">This page visualizes saved artifacts from preprocessing, training, and inference. It does not execute preprocessing steps in the browser.</p>
     </section>
 
     <section class="grid">
