@@ -38,7 +38,7 @@ def test_run_prediction_single_record(dataset_name: str, sample_file: str) -> No
     assert "model_metric_summary" in prediction
 
     assert prediction["class_probabilities"] is not None
-    assert isinstance(prediction["confidence_score"], float)
+    assert isinstance(prediction["top_class_probability"], float)
 
     if dataset_name == "heart":
         assert "model_warning" in prediction

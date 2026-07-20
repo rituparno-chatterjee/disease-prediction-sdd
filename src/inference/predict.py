@@ -20,8 +20,23 @@ HEART_BASELINE_WARNING = (
     "cautiously and not used for clinical decision-making."
 )
 
-# Optional mappings when domain labels are explicitly known.
-CLASS_LABEL_MAPS: dict[str, dict[int, str]] = {}
+CLASS_LABEL_MAPS: dict[str, dict[int, str]] = {
+    "diabetes": {
+        0: "no diabetes",
+        1: "diabetes",
+    },
+    "heart": {
+        0: "no heart disease",
+        1: "heart disease severity 1",
+        2: "heart disease severity 2",
+        3: "heart disease severity 3",
+        4: "heart disease severity 4",
+    },
+    "kidney": {
+        0: "ckd",
+        1: "notckd",
+    },
+}
 
 
 @dataclass(frozen=True)
@@ -352,7 +367,7 @@ def format_prediction_response(
         "predicted_class": prediction,
         "predicted_class_label": prediction_label,
         "class_probabilities": class_probabilities,
-        "confidence_score": max(class_probabilities.values()) if class_probabilities else None,
+        "top_class_probability": max(class_probabilities.values()) if class_probabilities else None,
         "validation_warnings": validation_warnings,
         "model_metric_summary": metric_summary,
     }

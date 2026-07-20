@@ -53,9 +53,9 @@ Validation raises clear `ValueError` messages for malformed inputs.
 ## Response Fields
 Per prediction result:
 - `predicted_class`
-- `predicted_class_label` (when label mapping exists)
+- `predicted_class_label` (human-readable label for all supported datasets)
 - `class_probabilities` (if supported)
-- `confidence_score`
+- `top_class_probability`
 - `validation_warnings`
 - `model_metric_summary`
 
@@ -106,5 +106,5 @@ Test file:
 
 ## Current Constraints
 - This is baseline model inference, not clinical decision support.
-- Class label text mapping is optional and currently dataset-map dependent.
+- Class label text mapping is implemented for all supported datasets.
 - CSV inference is supported by CLI, but repository sample inputs are currently JSON files.

@@ -34,9 +34,9 @@ Inference should remain artifact-driven and reproducible across all three datase
 ## 5. Define Stable Response Shape
 Each record response should include:
 - predicted class
-- optional predicted label mapping (if configured)
+- human-readable predicted class label
 - class probabilities (when available)
-- confidence score
+- top class probability
 - validation warnings
 - model metric summary snippet (if metrics exist)
 

@@ -5,12 +5,12 @@
     {
       "dataset": "diabetes",
       "predicted_class": 1,
-      "predicted_class_label": null,
+      "predicted_class_label": "diabetes",
       "class_probabilities": {
         "0": 0.19782261633386133,
         "1": 0.8021773836661387
       },
-      "confidence_score": 0.8021773836661387,
+      "top_class_probability": 0.8021773836661387,
       "validation_warnings": [],
       "model_metric_summary": {
         "task_type": "binary",

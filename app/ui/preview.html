@@ -281,9 +281,27 @@
         ]
       },
       inference: {
-        diabetes: { dataset: "diabetes", record_count: 1, results: [{ predicted_class: 1, confidence_score: 0.8022, validation_warnings: [], class_probabilities: { "0": 0.1978, "1": 0.8022 } }] },
-        heart: { dataset: "heart", record_count: 2, results: [{ predicted_class: 4, confidence_score: 0.3431, validation_warnings: ["Baseline warning"], class_probabilities: { "0": 0.1425, "1": 0.0770, "2": 0.2007, "3": 0.2368, "4": 0.3431 } }] },
-        kidney: { dataset: "kidney", record_count: 1, results: [{ predicted_class: 0, confidence_score: 0.8097, validation_warnings: [], class_probabilities: { "0": 0.8097, "1": 0.1903 } }] }
+        diabetes: { dataset: "diabetes", record_count: 1, results: [{ predicted_class: 1, predicted_class_label: "diabetes", top_class_probability: 0.8022, validation_warnings: [], class_probabilities: { "0": 0.1978, "1": 0.8022 } }] },
+        heart: { dataset: "heart", record_count: 2, results: [{ predicted_class: 4, predicted_class_label: "heart disease severity 4", top_class_probability: 0.3431, validation_warnings: ["Baseline warning"], class_probabilities: { "0": 0.1425, "1": 0.0770, "2": 0.2007, "3": 0.2368, "4": 0.3431 } }] },
+        kidney: { dataset: "kidney", record_count: 1, results: [{ predicted_class: 0, predicted_class_label: "ckd", top_class_probability: 0.8097, validation_warnings: [], class_probabilities: { "0": 0.8097, "1": 0.1903 } }] }
+      }
+    };
+
+    const classLabelMaps = {
+      diabetes: {
+        "0": "no diabetes",
+        "1": "diabetes"
+      },
+      heart: {
+        "0": "no heart disease",
+        "1": "heart disease severity 1",
+        "2": "heart disease severity 2",
+        "3": "heart disease severity 3",
+        "4": "heart disease severity 4"
+      },
+      kidney: {
+        "0": "ckd",
+        "1": "notckd"
       }
     };
 
@@ -307,6 +325,12 @@
     function score(v) {
       if (typeof v !== "number" || Number.isNaN(v)) return "n/a";
       return v.toFixed(4);
+    }
+
+    function labelForClass(datasetName, classValue) {
+      const datasetMap = classLabelMaps[datasetName] || {};
+      const key = String(classValue);
+      return datasetMap[key] || key;
     }
 
     async function loadJson(path, fallbackValue) {
@@ -420,8 +444,11 @@
         }
 
         const first = records[0];
-        title.innerHTML += "<div>Predicted class: <strong>" + (first.predicted_class ?? "n/a") + "</strong></div>";
-        title.innerHTML += "<div>Confidence: <strong>" + pct(first.confidence_score) + "</strong></div>";
+          const predictedClassValue = first.predicted_class ?? "n/a";
+          const predictedClassLabel = first.predicted_class_label || labelForClass(bundle.dataset, predictedClassValue);
+          const topClassProbability = first.top_class_probability ?? first.confidence_score;
+          title.innerHTML += "<div>Predicted class: <strong>" + predictedClassLabel + "</strong> <span class='muted'>(encoded: " + predictedClassValue + ")</span></div>";
+          title.innerHTML += "<div>Top class probability: <strong>" + pct(topClassProbability) + "</strong></div>";
 
         const probs = first.class_probabilities || {};
         const probKeys = Object.keys(probs);
@@ -433,7 +460,7 @@
             const width = Math.max(0, Math.min(100, (value || 0) * 100));
             const row = document.createElement("div");
             row.className = "bar-row";
-            row.innerHTML = "<div>Class " + key + "</div>"
+            row.innerHTML = "<div>" + labelForClass(bundle.dataset, key) + "</div>"
               + "<div class='bar-track'><div class='bar-fill validation' style='width:" + width + "%'></div></div>"
               + "<div>" + pct(value) + "</div>";
             probWrap.appendChild(row);

@@ -124,9 +124,9 @@ Write output to file:
 Prediction output includes:
 - selected dataset
 - predicted class
-- predicted class label (when mapping is available)
+- predicted class label (human-readable label for all supported datasets)
 - class probabilities (when `predict_proba` is available)
-- confidence score (max class probability)
+- top class probability (max class probability)
 - validation warnings
 - model metric summary from `metrics.json` (when present)
 

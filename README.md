@@ -131,6 +131,12 @@ From CSV file (batch):
 Open the static preview page to visualize saved training metrics and sample inference outputs:
 - `app/ui/preview.html`
 
+The preview renders:
+- dataset-level training metrics
+- human-readable predicted class labels for diabetes, heart, and kidney outputs
+- encoded class IDs for traceability
+- top class probability and per-class probability bars
+
 ## Run Tests
 
 ```powershell

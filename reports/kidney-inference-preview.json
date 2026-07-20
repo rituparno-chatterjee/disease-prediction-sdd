@@ -5,12 +5,12 @@
     {
       "dataset": "kidney",
       "predicted_class": 0,
-      "predicted_class_label": null,
+      "predicted_class_label": "ckd",
       "class_probabilities": {
         "0": 0.809715555739413,
         "1": 0.19028444426058702
       },
-      "confidence_score": 0.809715555739413,
+      "top_class_probability": 0.809715555739413,
       "validation_warnings": [],
       "model_metric_summary": {
         "task_type": "binary",
