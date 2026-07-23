@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Disease Prediction Preview</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap");
+
     :root {
-      --bg: #f7f6f3;
-      --panel: #ffffff;
-      --ink: #1e2a32;
-      --muted: #5a6770;
-      --line: #d5d9dc;
-      --primary: #0f766e;
-      --secondary: #7c3aed;
-      --accent: #f59e0b;
-      --good: #15803d;
-      --warn: #b45309;
-      --bad: #b91c1c;
-      --radius: 14px;
+      --bg: #f4f2ec;
+      --panel: #fffdf8;
+      --ink: #1f2930;
+      --muted: #5a666f;
+      --line: #d8d2c6;
+      --brand: #0d6b5f;
+      --brand-deep: #124a55;
+      --warning: #9f4e12;
+      --chip-bg: #eef8f6;
+      --chip-line: #b8ddd6;
+      --radius: 16px;
     }
 
     * {
@@ -26,139 +27,126 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 15% -10%, #d8f8f3 0%, transparent 40%),
-        radial-gradient(circle at 95% 0%, #f6e8ff 0%, transparent 38%),
+        radial-gradient(circle at 8% -5%, #d6efe8 0%, transparent 36%),
+        radial-gradient(circle at 94% 0%, #f4dfbf 0%, transparent 33%),
         var(--bg);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .wrap {
-      width: min(1100px, 92vw);
-      margin: 30px auto 40px;
+      width: min(1060px, 92vw);
+      margin: 28px auto 40px;
       display: grid;
-      gap: 18px;
+      gap: 16px;
+    }
+
+    .hero,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(22, 32, 39, 0.08);
+      animation: rise 480ms ease both;
     }
 
     .hero {
-      background: linear-gradient(120deg, #123f58, #0f766e 60%, #0a5b61);
-      color: #ffffff;
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 16px 38px rgba(18, 63, 88, 0.25);
+      padding: 20px;
+      background:
+        linear-gradient(132deg, rgba(18, 74, 85, 0.12), rgba(13, 107, 95, 0.08)),
+        var(--panel);
     }
 
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(1.4rem, 2vw, 2rem);
-      letter-spacing: 0.02em;
-    }
-
-    .hero p {
+    h1,
+    h2 {
       margin: 0;
-      color: #d6f4f2;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      color: #143742;
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
     }
 
     .badge-row {
-      margin-top: 12px;
+      margin-top: 14px;
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
     .badge {
-      font-size: 0.8rem;
       padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid var(--chip-line);
+      background: var(--chip-bg);
+      color: #0f5a52;
+      font-size: 0.78rem;
+      font-weight: 700;
     }
 
-    .grid {
+    .layout {
       display: grid;
       grid-template-columns: 1fr;
       gap: 16px;
     }
 
-    @media (min-width: 920px) {
-      .grid {
-        grid-template-columns: 1.2fr 1fr;
+    @media (min-width: 940px) {
+      .layout {
+        grid-template-columns: 1.1fr 1fr;
       }
     }
 
     .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
       padding: 16px;
-      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
     }
 
     .panel h2 {
-      margin: 0 0 10px;
       font-size: 1.05rem;
-      color: #13232d;
+      color: #173943;
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
     .kpis {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+      gap: 9px;
+      margin-bottom: 12px;
     }
 
     .kpi {
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 10px;
-      background: #fbfcfd;
+      background: #fffcf4;
     }
 
     .kpi .label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--muted);
     }
 
     .kpi .value {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-top: 3px;
-    }
-
-    .bars {
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 110px 1fr 48px;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bar-track {
-      position: relative;
-      height: 12px;
-      border-radius: 999px;
-      background: #e8ecef;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: 999px;
-    }
-
-    .bar-fill.validation {
-      background: linear-gradient(90deg, #14b8a6, #0f766e);
-    }
-
-    .bar-fill.test {
-      background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+      margin-top: 2px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #1b3943;
     }
 
     .metric-table {
@@ -169,15 +157,15 @@
 
     .metric-table th,
     .metric-table td {
-      border-bottom: 1px solid var(--line);
       padding: 8px 6px;
+      border-bottom: 1px solid var(--line);
       text-align: left;
     }
 
     .metric-table th {
-      color: #2e3d47;
-      background: #f8fafb;
-      font-weight: 600;
+      color: #2c4047;
+      font-weight: 700;
+      background: #f6f5ef;
     }
 
     .inference-list {
@@ -189,137 +177,88 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 10px;
-      background: #fcfdfd;
+      background: #ffffff;
     }
 
     .pred-head {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
       margin-bottom: 8px;
+      flex-wrap: wrap;
     }
 
     .pill {
+      padding: 3px 9px;
       border-radius: 999px;
-      padding: 2px 9px;
-      font-size: 0.75rem;
-      border: 1px solid #bdd9d6;
-      background: #edf9f8;
-      color: #0f766e;
-      font-weight: 600;
+      border: 1px solid var(--chip-line);
+      background: var(--chip-bg);
+      color: #0f5a52;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.9rem;
+      padding: 3px 0;
+    }
+
+    .stat-label {
+      color: var(--muted);
     }
 
     .warn {
-      color: var(--warn);
+      margin-top: 7px;
+      color: var(--warning);
       font-size: 0.84rem;
-      margin-top: 6px;
-    }
-
-    .foot {
-      font-size: 0.84rem;
-      color: var(--muted);
     }
 
     .empty {
       color: var(--muted);
       font-size: 0.9rem;
-      padding: 8px;
       border: 1px dashed var(--line);
       border-radius: 10px;
-      background: #fcfcfd;
+      padding: 9px;
+      background: #fcfbf8;
     }
 
-    .context-list {
-      margin: 0;
-      padding-left: 18px;
-      display: grid;
-      gap: 6px;
-      color: #24333d;
-      font-size: 0.92rem;
-    }
-
-    .context-note {
-      margin-top: 10px;
+    .foot {
+      margin-top: 8px;
       color: var(--muted);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
 
-    .context-grid {
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    @media (min-width: 920px) {
-      .context-grid {
-        grid-template-columns: 1fr 1fr;
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
       }
-    }
 
-    .context-card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px;
-      background: #fbfcfd;
-    }
-
-    .context-card h3 {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
-      color: #1f2f39;
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="hero">
-      <h1>Disease Prediction Training + Inferencing Preview</h1>
-      <p>Lightweight static view over saved metrics and sample inference outputs.</p>
+      <h1>Disease Prediction Snapshot</h1>
+      <p class="subtitle">At-a-glance view of saved training metrics and sample predictions for diabetes, heart, and kidney datasets.</p>
       <div class="badge-row" id="statusBadges"></div>
     </section>
 
-    <section class="panel">
-      <h2>Data Preprocessing + Feature Engineering</h2>
-      <div class="context-grid">
-        <article class="context-card">
-          <h3>Pipeline Steps Used Before Training</h3>
-          <ul class="context-list">
-            <li>Token standardization normalizes noisy categorical placeholders (for example ?, na, null-like tokens).</li>
-            <li>Label encoding converts standardized categorical values into model-ready numeric columns.</li>
-            <li>Dataset target mapping is fixed: diabetes -> Outcome, heart -> num, kidney -> class.</li>
-            <li>Rows with missing target values are removed before split construction.</li>
-            <li>Stratified train/validation/test splits are created with deterministic random state.</li>
-            <li>Eligible non-ID feature columns are scaled where required by the model path.</li>
-          </ul>
-        </article>
-        <article class="context-card">
-          <h3>Dataset-Specific Feature Engineering Paths</h3>
-          <ul class="context-list">
-            <li>Diabetes and kidney pipelines follow a numeric baseline: median imputation, scaling, logistic regression.</li>
-            <li>Kidney training drops the affected leakage proxy before model fitting.</li>
-            <li>Heart uses a type-aware ColumnTransformer to avoid treating nominal medical categories as continuous numbers.</li>
-            <li>Heart numeric branch: median imputation plus standard scaling.</li>
-            <li>Heart categorical branch: most-frequent imputation plus one-hot encoding with unknown-category tolerance.</li>
-            <li>Inference reuses the saved training pipeline artifact, so browser preview and CLI outputs reflect the same preprocessing logic.</li>
-          </ul>
-        </article>
-      </div>
-      <p class="context-note">This page visualizes saved artifacts from preprocessing, training, and inference. It does not execute preprocessing steps in the browser.</p>
-    </section>
-
-    <section class="grid">
+    <section class="layout">
       <article class="panel">
-        <h2>Training Overview</h2>
+        <h2>Training Summary</h2>
+        <p class="meta">Baseline logistic model metrics from report artifacts.</p>
         <div id="kpiGrid" class="kpis"></div>
-        <div id="barChart" class="bars"></div>
-      </article>
-
-      <article class="panel">
-        <h2>Dataset Metrics</h2>
-        <table class="metric-table">
+        <table class="metric-table" aria-label="Dataset metrics">
           <thead>
             <tr>
               <th>Dataset</th>
@@ -332,46 +271,65 @@
           <tbody id="metricsRows"></tbody>
         </table>
       </article>
+
+      <article class="panel">
+        <h2>Inference Snapshot</h2>
+        <p class="meta">First prediction from each dataset preview file.</p>
+        <div id="inferenceList" class="inference-list"></div>
+      </article>
     </section>
 
-    <section class="panel">
-      <h2>Inferencing Preview</h2>
-      <div id="inferenceList" class="inference-list"></div>
-      <p class="foot">Tip: serve this repo with a local web server for live JSON loading, for example: <strong>python -m http.server</strong>.</p>
-    </section>
+    <p class="foot">For live JSON loading, serve the repository locally (for example: python -m http.server).</p>
   </main>
 
   <script>
     const fallback = {
       training: {
         datasets: [
-          { dataset: "diabetes", task_type: "binary", rows_used: 768, validation_f1: 0.6889, test_f1: 0.675 },
+          { dataset: "diabetes", task_type: "binary", rows_used: 768, validation_f1: 0.6889, test_f1: 0.6750 },
           { dataset: "heart", task_type: "multiclass", rows_used: 920, validation_f1: 0.4031, test_f1: 0.3712 },
-          { dataset: "kidney", task_type: "binary", rows_used: 200, validation_f1: 0.9565, test_f1: 1.0 }
+          { dataset: "kidney", task_type: "binary", rows_used: 200, validation_f1: 0.9565, test_f1: 1.0000 }
         ]
       },
       inference: {
-        diabetes: { dataset: "diabetes", record_count: 1, results: [{ predicted_class: 1, predicted_class_label: "diabetes", top_class_probability: 0.8022, validation_warnings: [], class_probabilities: { "0": 0.1978, "1": 0.8022 } }] },
-        heart: { dataset: "heart", record_count: 2, results: [{ predicted_class: 4, predicted_class_label: "heart disease severity 4", top_class_probability: 0.3431, validation_warnings: ["Baseline warning"], class_probabilities: { "0": 0.1425, "1": 0.0770, "2": 0.2007, "3": 0.2368, "4": 0.3431 } }] },
-        kidney: { dataset: "kidney", record_count: 1, results: [{ predicted_class: 0, predicted_class_label: "ckd", top_class_probability: 0.8097, validation_warnings: [], class_probabilities: { "0": 0.8097, "1": 0.1903 } }] }
-      }
-    };
-
-    const classLabelMaps = {
-      diabetes: {
-        "0": "no diabetes",
-        "1": "diabetes"
-      },
-      heart: {
-        "0": "no heart disease",
-        "1": "heart disease severity 1",
-        "2": "heart disease severity 2",
-        "3": "heart disease severity 3",
-        "4": "heart disease severity 4"
-      },
-      kidney: {
-        "0": "ckd",
-        "1": "notckd"
+        diabetes: {
+          dataset: "diabetes",
+          record_count: 1,
+          results: [
+            {
+              predicted_class: 1,
+              predicted_class_label: "diabetes",
+              top_class_probability: 0.8022,
+              validation_warnings: []
+            }
+          ]
+        },
+        heart: {
+          dataset: "heart",
+          record_count: 2,
+          results: [
+            {
+              predicted_class: 4,
+              predicted_class_label: "heart disease severity 4",
+              top_class_probability: 0.3431,
+              validation_warnings: [
+                "Baseline model output. Use caution and do not treat this as clinical advice."
+              ]
+            }
+          ]
+        },
+        kidney: {
+          dataset: "kidney",
+          record_count: 1,
+          results: [
+            {
+              predicted_class: 0,
+              predicted_class_label: "ckd",
+              top_class_probability: 0.8097,
+              validation_warnings: []
+            }
+          ]
+        }
       }
     };
 
@@ -387,107 +345,84 @@
       loaded: []
     };
 
-    function pct(v) {
-      if (typeof v !== "number" || Number.isNaN(v)) return "n/a";
-      return (v * 100).toFixed(1) + "%";
+    function score(value) {
+      if (typeof value !== "number" || Number.isNaN(value)) return "n/a";
+      return value.toFixed(4);
     }
 
-    function score(v) {
-      if (typeof v !== "number" || Number.isNaN(v)) return "n/a";
-      return v.toFixed(4);
-    }
-
-    function labelForClass(datasetName, classValue) {
-      const datasetMap = classLabelMaps[datasetName] || {};
-      const key = String(classValue);
-      return datasetMap[key] || key;
+    function pct(value) {
+      if (typeof value !== "number" || Number.isNaN(value)) return "n/a";
+      return (value * 100).toFixed(1) + "%";
     }
 
     async function loadJson(path, fallbackValue) {
       try {
         const response = await fetch(path);
-        if (!response.ok) throw new Error("bad response");
+        if (!response.ok) {
+          throw new Error("Unable to read " + path);
+        }
         state.loaded.push(path);
         return await response.json();
-      } catch (_err) {
+      } catch (_error) {
         state.usedFallback = true;
         return fallbackValue;
       }
     }
 
     function renderBadges() {
-      const el = document.getElementById("statusBadges");
-      el.innerHTML = "";
+      const host = document.getElementById("statusBadges");
+      host.innerHTML = "";
 
-      const loadedBadge = document.createElement("span");
-      loadedBadge.className = "badge";
-      loadedBadge.textContent = "Loaded files: " + state.loaded.length;
-      el.appendChild(loadedBadge);
+      const mode = document.createElement("span");
+      mode.className = "badge";
+      mode.textContent = state.usedFallback ? "Fallback sample data" : "Live report files";
+      host.appendChild(mode);
 
-      const modeBadge = document.createElement("span");
-      modeBadge.className = "badge";
-      modeBadge.textContent = state.usedFallback ? "Mode: Fallback sample data" : "Mode: Live JSON files";
-      el.appendChild(modeBadge);
+      const loaded = document.createElement("span");
+      loaded.className = "badge";
+      loaded.textContent = "JSON loaded: " + state.loaded.length + "/4";
+      host.appendChild(loaded);
     }
 
     function renderTraining(training) {
-      const datasets = Array.isArray(training?.datasets) ? training.datasets : [];
+      const datasets = Array.isArray(training && training.datasets) ? training.datasets : [];
       const kpiGrid = document.getElementById("kpiGrid");
       const rows = document.getElementById("metricsRows");
-      const bars = document.getElementById("barChart");
 
       kpiGrid.innerHTML = "";
       rows.innerHTML = "";
-      bars.innerHTML = "";
 
       if (!datasets.length) {
-        kpiGrid.innerHTML = "<div class=\"empty\">No training metrics found.</div>";
+        kpiGrid.innerHTML = "<div class='empty'>No training metrics found.</div>";
         return;
       }
 
-      const avgVal = datasets.reduce((a, d) => a + (d.validation_f1 || 0), 0) / datasets.length;
-      const avgTest = datasets.reduce((a, d) => a + (d.test_f1 || 0), 0) / datasets.length;
-      const totalRows = datasets.reduce((a, d) => a + (d.rows_used || 0), 0);
+      const avgValF1 = datasets.reduce((sum, item) => sum + (item.validation_f1 || 0), 0) / datasets.length;
+      const avgTestF1 = datasets.reduce((sum, item) => sum + (item.test_f1 || 0), 0) / datasets.length;
+      const totalRows = datasets.reduce((sum, item) => sum + (item.rows_used || 0), 0);
 
       const kpis = [
         ["Datasets", String(datasets.length)],
-        ["Rows Used", String(totalRows)],
-        ["Avg Validation F1", score(avgVal)],
-        ["Avg Test F1", score(avgTest)]
+        ["Rows", String(totalRows)],
+        ["Avg Val F1", score(avgValF1)],
+        ["Avg Test F1", score(avgTestF1)]
       ];
 
-      kpis.forEach(([label, value]) => {
+      kpis.forEach((entry) => {
         const card = document.createElement("div");
         card.className = "kpi";
-        card.innerHTML = "<div class='label'>" + label + "</div><div class='value'>" + value + "</div>";
+        card.innerHTML = "<div class='label'>" + entry[0] + "</div><div class='value'>" + entry[1] + "</div>";
         kpiGrid.appendChild(card);
       });
 
-      datasets.forEach((d) => {
+      datasets.forEach((item) => {
         const tr = document.createElement("tr");
-        tr.innerHTML = "<td>" + d.dataset + "</td>"
-          + "<td>" + (d.task_type || "n/a") + "</td>"
-          + "<td>" + (d.rows_used ?? "n/a") + "</td>"
-          + "<td>" + score(d.validation_f1) + "</td>"
-          + "<td>" + score(d.test_f1) + "</td>";
+        tr.innerHTML = "<td>" + (item.dataset || "n/a") + "</td>"
+          + "<td>" + (item.task_type || "n/a") + "</td>"
+          + "<td>" + (item.rows_used ?? "n/a") + "</td>"
+          + "<td>" + score(item.validation_f1) + "</td>"
+          + "<td>" + score(item.test_f1) + "</td>";
         rows.appendChild(tr);
-
-        const valWidth = Math.max(0, Math.min(100, (d.validation_f1 || 0) * 100));
-        const testWidth = Math.max(0, Math.min(100, (d.test_f1 || 0) * 100));
-
-        const valRow = document.createElement("div");
-        valRow.className = "bar-row";
-        valRow.innerHTML = "<div>" + d.dataset + " val</div>"
-          + "<div class='bar-track'><div class='bar-fill validation' style='width:" + valWidth + "%'></div></div>"
-          + "<div>" + pct(d.validation_f1) + "</div>";
-        bars.appendChild(valRow);
-
-        const testRow = document.createElement("div");
-        testRow.className = "bar-row";
-        testRow.innerHTML = "<div>" + d.dataset + " test</div>"
-          + "<div class='bar-track'><div class='bar-fill test' style='width:" + testWidth + "%'></div></div>"
-          + "<div>" + pct(d.test_f1) + "</div>";
-        bars.appendChild(testRow);
       });
     }
 
@@ -495,58 +430,48 @@
       const host = document.getElementById("inferenceList");
       host.innerHTML = "";
 
-      const datasets = Object.values(predictionsByDataset || {});
-      if (!datasets.length) {
+      const bundles = Object.values(predictionsByDataset || {});
+      if (!bundles.length) {
         host.innerHTML = "<div class='empty'>No inference outputs found.</div>";
         return;
       }
 
-      datasets.forEach((bundle) => {
-        const records = Array.isArray(bundle?.results) ? bundle.results : [];
-        const title = document.createElement("div");
-        title.className = "pred-card";
-        title.innerHTML = "<div class='pred-head'><strong>" + (bundle.dataset || "dataset") + "</strong><span class='pill'>records: " + (bundle.record_count ?? records.length) + "</span></div>";
+      bundles.forEach((bundle) => {
+        const records = Array.isArray(bundle && bundle.results) ? bundle.results : [];
+
+        const card = document.createElement("div");
+        card.className = "pred-card";
 
         if (!records.length) {
-          title.innerHTML += "<div class='empty'>No prediction records in file.</div>";
-          host.appendChild(title);
+          card.innerHTML = "<div class='pred-head'><strong>" + (bundle.dataset || "dataset") + "</strong></div><div class='empty'>No prediction records in file.</div>";
+          host.appendChild(card);
           return;
         }
 
         const first = records[0];
-          const predictedClassValue = first.predicted_class ?? "n/a";
-          const predictedClassLabel = first.predicted_class_label || labelForClass(bundle.dataset, predictedClassValue);
-          const topClassProbability = first.top_class_probability ?? first.confidence_score;
-          title.innerHTML += "<div>Predicted class: <strong>" + predictedClassLabel + "</strong> <span class='muted'>(encoded: " + predictedClassValue + ")</span></div>";
-          title.innerHTML += "<div>Top class probability: <strong>" + pct(topClassProbability) + "</strong></div>";
+        const label = first.predicted_class_label || String(first.predicted_class ?? "n/a");
+        const confidence = first.top_class_probability ?? first.confidence_score;
+        const warning = Array.isArray(first.validation_warnings) && first.validation_warnings.length ? first.validation_warnings[0] : "";
 
-        const probs = first.class_probabilities || {};
-        const probKeys = Object.keys(probs);
-        if (probKeys.length) {
-          const probWrap = document.createElement("div");
-          probWrap.className = "bars";
-          probKeys.forEach((key) => {
-            const value = probs[key];
-            const width = Math.max(0, Math.min(100, (value || 0) * 100));
-            const row = document.createElement("div");
-            row.className = "bar-row";
-            row.innerHTML = "<div>" + labelForClass(bundle.dataset, key) + "</div>"
-              + "<div class='bar-track'><div class='bar-fill validation' style='width:" + width + "%'></div></div>"
-              + "<div>" + pct(value) + "</div>";
-            probWrap.appendChild(row);
-          });
-          title.appendChild(probWrap);
+        card.innerHTML = "<div class='pred-head'><strong>" + (bundle.dataset || "dataset") + "</strong><span class='pill'>records: " + (bundle.record_count ?? records.length) + "</span></div>"
+          + "<div class='stat-row'><span class='stat-label'>Predicted label</span><strong>" + label + "</strong></div>"
+          + "<div class='stat-row'><span class='stat-label'>Top class probability</span><strong>" + pct(confidence) + "</strong></div>";
+
+        if ((bundle.record_count ?? records.length) > 1) {
+          const note = document.createElement("div");
+          note.className = "stat-row";
+          note.innerHTML = "<span class='stat-label'>View</span><span>First record only</span>";
+          card.appendChild(note);
         }
 
-        const warnings = Array.isArray(first.validation_warnings) ? first.validation_warnings : [];
-        if (warnings.length) {
-          const w = document.createElement("div");
-          w.className = "warn";
-          w.textContent = "Warning: " + warnings[0];
-          title.appendChild(w);
+        if (warning) {
+          const warningRow = document.createElement("div");
+          warningRow.className = "warn";
+          warningRow.textContent = "Model note: " + warning;
+          card.appendChild(warningRow);
         }
 
-        host.appendChild(title);
+        host.appendChild(card);
       });
     }
 
